@@ -7,11 +7,48 @@ from sklearn.metrics.cluster import rand_score, adjusted_rand_score, homogeneity
 import docker
 import os
 import json
+import subprocess
 
-
-client = docker.from_env()
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
+
+in_container = False
+
+if not in_container:
+    client = docker.from_env()
+
+
+def exec_gumtree_tool(left, right):
+    command = "gumtree textdiff -f JSON {left} {right}".format(left = left, right = right)
+    result = subprocess.run([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    err = result.stderr
+    output = result.stdout
+    return output
+
+
+def exec_gumtree_via_docker(left_base, right_base):
+
+    assert(not in_container)
+    vols = {
+        left_base: {'bind': '/left', 'mode': 'rw'},
+        right_base: {'bind': '/right', 'mode': 'rw'}
+    }
+
+    #  GumTree is hard to install. Instead, spin it up as a docker image.
+    #  docker run -it -v scratch\left:/diff/left -v scratch\right:/diff/right -p 4567:4567 gumtreediff/gumtree textdiff -f JSON left/a.py right/a.py
+    container = client.containers.run("gumtreediff/gumtree", "textdiff -f JSON /left/a.py /right/a.py", volumes = vols, detach=True)
+
+
+
+
+
+    container.wait()
+    output = container.logs()
+    output = output.decode()
+    container.remove() # Free container
+    return output
 
 def gumtree(t1, t2):
 
@@ -37,21 +74,14 @@ def gumtree(t1, t2):
     write_file(left, t1)
     write_file(right, t2)
     
-    vols = {
-        left_base: {'bind': '/left', 'mode': 'rw'},
-        right_base: {'bind': '/right', 'mode': 'rw'}
-    }
+    # Exec and read results.
 
     # For each pair of texts, diff is the number of of 'actions' predicted by GumTree.
 
-    #  GumTree is hard to install. Instead, spin it up as a docker image.
-    #  docker run -it -v scratch\left:/diff/left -v scratch\right:/diff/right -p 4567:4567 gumtreediff/gumtree textdiff -f JSON left/a.py right/a.py
-    container = client.containers.run("gumtreediff/gumtree", "textdiff -f JSON /left/a.py /right/a.py", volumes = vols, detach=True)
-
-    container.wait()
-    output = container.logs()
-    output = output.decode()
-    container.remove() # Free container
+    if in_container:
+        output = exec_gumtree_tool(left, right)
+    else:
+        output = exec_gumtree_via_docker(left_base, right_base)
     
     if ("'textdiff'" in output):
         print('Unexpected error in GumTree comparison!! There may be something wrong with the setup.')
