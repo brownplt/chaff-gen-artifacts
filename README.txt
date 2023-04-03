@@ -35,4 +35,3 @@ https://drive.google.com/drive/u/1/folders/1OCQs6m2C9TMhRgr41MmwGTX8MS0jFkMx
 
 This is where we get wheats and chaffs
 
-## Question: Raw data? Anonymized runs with code? Seems like too much.

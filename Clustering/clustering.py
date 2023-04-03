@@ -1,9 +1,8 @@
-
-
+import os
 from sklearn.metrics.cluster import homogeneity_score, v_measure_score
 import pandas as pd
-from affinity_prop import text_clustering, print_clusters, get_predictions
 
+from affinity_prop import text_clustering, print_clusters, get_predictions
 from syntactic_similarity import tree_diff_metric, levenshtein
 
 def read_excel_file(f, sheetname, check_fp = False):
@@ -41,11 +40,15 @@ def print_metrics(labels_pred, labels_true):
     msg = 'Sheet: {s} \t V Measure: {vm}, Homogeneity: {hs} '
     print(msg.format(hs = hs,vm = vm, s = s))
 
+
+## TODO: CMD LINE ARGS!
 if __name__ == "__main__":
 
-    technique = 'tree_diff'
 
-    file = r'C:\Users\nivsi\Desktop\Artifacts for Programming\2020 Labelling and Clustering.xlsx'
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    file = os.path.join(dir_path, r"2020 Labelling and Clustering.xlsx")
+
+    technique = 'tree_diff'
 
     sheets = [
         r'Docdiff-Consolidated-With-Code',

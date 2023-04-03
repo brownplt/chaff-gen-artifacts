@@ -10,16 +10,19 @@ import subprocess
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
-in_container = False
+in_container = os.environ.get('CONTAINER')
 
 if not in_container:
     import docker
     client = docker.from_env()
+    print("[No Gumtree installed, using GumTree docker container]")
+else:
+    print("[Running in Docker container]")
 
 
 def exec_gumtree_tool(left, right):
-    command = "gumtree textdiff -f JSON {left} {right}".format(left = left, right = right)
-    result = subprocess.run([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    command = ["gumtree", "textdiff", "-f", "JSON", left, right]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     err = result.stderr
     output = result.stdout
