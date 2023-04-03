@@ -1,10 +1,7 @@
-import csv
+
 import numpy as np
 import pandas as pd
 import distance
-from sklearn.cluster import AffinityPropagation
-from sklearn.metrics.cluster import rand_score, adjusted_rand_score, homogeneity_score, completeness_score, v_measure_score
-import docker
 import os
 import json
 import subprocess
@@ -16,6 +13,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 in_container = False
 
 if not in_container:
+    import docker
     client = docker.from_env()
 
 
