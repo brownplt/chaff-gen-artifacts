@@ -43,19 +43,20 @@ under the sheets `DocDiff-Consolidated`, `Nile-Consolidated`, and `Filesystem-Co
 ### Artifact 1.3: Cluster Evaluation
 We also provide a Python program and associated Docker container that can be used to generate both semantic and syntactic clusters using this spreadsheet, and generate clustering evaluation metrics as described in the paper.
 
-Source code can be found in the `Clustering` directory. The Docker container that wraps this source code can be pulled from: `TODO: Fill`
+Source code can be found in the `Clustering` directory. The Docker container that wraps this source code can be pulled from Dockerhub by running:
+ `docker pull sidprasad/wfe-clustering`
  or built using the associated Dockerfile:
 
 ```
 cd Clustering
-docker build . -t clustering
+docker build . -t sidprasad/wfe-clustering
 
 ```
 
 It can then be run as follows:
 
 ```
-docker run --rm -it clustering <option>
+docker run --rm -it sidprasad/wfe-clustering <option>
 ```
 
 Where option can be one of `semantic`, `leveshtein` or `tree_diff`.
@@ -72,7 +73,7 @@ Our second contribution involved evaluating chaffs generated using our clusterin
 
 ### Artifact 2.1
 
-Chaffs presented to students for each assignment for each year are available in the `Chaff Eval` directory.
+Chaffs presented to students for each assignment for each year are available in the `Chaff Eval` directory. A mapping of characteristic to chaff can be found in `Chaff Eval\Characteristics to Chaff map.xlsx`
 
 
 ### Artifact 2.2
