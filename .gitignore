@@ -1,5 +1,5 @@
 ~*.xlsx
-scratch/**
+**/scratch/**
 
 
 # Byte-compiled / optimized / DLL files

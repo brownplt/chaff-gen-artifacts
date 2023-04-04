@@ -4,6 +4,7 @@ import pandas as pd
 
 from affinity_prop import text_clustering, print_clusters, get_predictions
 from syntactic_similarity import tree_diff_metric, levenshtein
+import sys
 
 def read_excel_file(f, sheetname, check_fp = False):
     df = pd.read_excel(f, sheet_name=sheetname)
@@ -15,7 +16,7 @@ def read_excel_file(f, sheetname, check_fp = False):
     python_translation = []
 
     for _, row in df.iterrows():
-        fp = row['Fingerprint']
+        fp = row['Feature Vector']
         classification = row['Classification']
         c = row['Test Code']
         pt = row['Python Translation']
@@ -41,19 +42,23 @@ def print_metrics(labels_pred, labels_true):
     print(msg.format(hs = hs,vm = vm, s = s))
 
 
-## TODO: CMD LINE ARGS!
 if __name__ == "__main__":
 
+    print("[Starting...]")
+    if len(sys.argv) != 2:
+         print("You supplied arguments : {l} \n Usage: <program> <technique>. ".format(l= sys.argv))
 
+
+    technique = sys.argv[1]
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file = os.path.join(dir_path, r"2020 Labelling and Clustering.xlsx")
 
-    technique = 'tree_diff'
+    print("Clustering by " + technique)
 
     sheets = [
-        r'Docdiff-Consolidated-With-Code',
-        r'Nile-Consolidated-With-Code',
-        r'Filesystem-Consolidated-With-Co'
+        r'Docdiff-Consolidated',
+        r'Nile-Consolidated',
+        r'Filesystem-Consolidated'
     ]
 
     for s in sheets:
@@ -67,14 +72,16 @@ if __name__ == "__main__":
             _, labels_true, code, __ = read_excel_file(file, s)
             affprop, _ = text_clustering(code, similarity=levenshtein)
             cluster_dict = print_clusters(affprop, code)
-            labels_pred = get_predictions(file, s, cluster_dict)
+            labels_pred = get_predictions(file, s, cluster_dict, 'Test Code')
         
         elif technique == "tree_diff":
+            print("\t This may take some time...")
             _, labels_true, __, code = read_excel_file(file, s)
             affprop, _ = text_clustering(code, similarity=tree_diff_metric)
             cluster_dict = print_clusters(affprop, code)
-            labels_pred = get_predictions(file, s, cluster_dict)
+            labels_pred = get_predictions(file, s, cluster_dict, 'Python Translation')
         else:
-            print("UNKNOWN OPTION!")
+            print("Unknown option. The only valid options are: semantic, levenshtein, tree_diff")
+            sys.exit(-1)
 
         print_metrics(labels_pred=labels_pred, labels_true=labels_true)

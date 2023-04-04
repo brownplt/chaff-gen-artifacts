@@ -26,7 +26,7 @@ def exec_gumtree_tool(left, right):
 
     err = result.stderr
     output = result.stdout
-    return output
+    return output.decode()
 
 
 def exec_gumtree_via_docker(left_base, right_base):
@@ -40,11 +40,6 @@ def exec_gumtree_via_docker(left_base, right_base):
     #  GumTree is hard to install. Instead, spin it up as a docker image.
     #  docker run -it -v scratch\left:/diff/left -v scratch\right:/diff/right -p 4567:4567 gumtreediff/gumtree textdiff -f JSON left/a.py right/a.py
     container = client.containers.run("gumtreediff/gumtree", "textdiff -f JSON /left/a.py /right/a.py", volumes = vols, detach=True)
-
-
-
-
-
     container.wait()
     output = container.logs()
     output = output.decode()
@@ -90,6 +85,7 @@ def gumtree(t1, t2):
         print("-----------------")
         print(t2)
         print("-----------------")
+        print(output)
         return 0/0
 
 
@@ -102,6 +98,7 @@ def tree_diff_metric(texts):
 
     _similarity = np.array([[gumtree(list(w1),list(w2)) for w1 in texts] for w2 in texts])
     _similarity = -1*_similarity
+    _similarity = _similarity.astype(np.float64)
     return _similarity
 
 
@@ -111,5 +108,6 @@ def levenshtein(texts):
     texts = np.asarray(texts, dtype=object)
     _similarity = np.array([[distance.levenshtein(list(w1),list(w2)) for w1 in texts] for w2 in texts])
     _similarity = -1*_similarity
+    _similarity = _similarity.astype(np.float64)
     return _similarity
 
