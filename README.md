@@ -1,14 +1,5 @@
 # Artifacts: Conceptual Mutation Testing
 
-TODO:
-
-- [] Found error in paper figure 3 (# of analyzed samples off by 1).
-- - [] Nile : It was possibel for a WFE to have no feature vector. If this was the case, it was impossible
-to identify the failing test when generating Pyret logs (as Jack warned could happen).
-In this case, we did not use these WFEs for our labelling or clustering analysis. I propose we reflect this in Figure 3.
-
-
-
 This repository contains artifacts for the paper:
 
 
