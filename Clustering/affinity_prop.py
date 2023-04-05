@@ -3,8 +3,6 @@ import numpy as np
 import pandas as pd
 from sklearn.cluster import AffinityPropagation
 
-
-
 def text_clustering(texts, similarity):
     _similarity = similarity(texts)
     _affprop = AffinityPropagation(affinity="precomputed", damping=0.5, verbose=True,
@@ -14,13 +12,11 @@ def text_clustering(texts, similarity):
 
 
 def print_clusters(affprop, texts):
-    '''Print clusters'''
     texts = np.asarray(texts)
     clusters = np.unique(affprop.labels_)
     print(f'\n~ Number of texts:: {texts.shape[0]}')
     print(f'~ Number of clusters:: {clusters.shape[0]}')
     if clusters.shape[0] < 2: return 'Only few clusters - Stopped'
-
 
     clusters_as_dict = {}
 
@@ -33,15 +29,13 @@ def print_clusters(affprop, texts):
         print(f'\nOthers::\n  "{cluster_str}"')
         clusters_as_dict[cluster_id] = list(cluster)
 
-
     return clusters_as_dict
 
 def get_cluster(text, clusters):
     
     for id in clusters:
-
         cs = [str(x) for x in clusters[id]]
-        if text in cs: # clusters[id]:
+        if text in cs:
             return id
     print('Text in NO cluster')
     print(text)

@@ -38,8 +38,8 @@ def print_metrics(labels_pred, labels_true):
     hs = homogeneity_score(labels_true, labels_pred)
     vm = v_measure_score(labels_true, labels_pred)
 
-    msg = 'Sheet: {s} \t V Measure: {vm}, Homogeneity: {hs} '
-    print(msg.format(hs = hs,vm = vm, s = s))
+    msg = 'V Measure: {vm}, Homogeneity: {hs} '
+    print(msg.format(hs = hs,vm = vm))
 
 
 if __name__ == "__main__":
@@ -49,19 +49,21 @@ if __name__ == "__main__":
          print("You supplied arguments : {l} \n Usage: <program> <technique>. ".format(l= sys.argv))
 
 
-    technique = sys.argv[1]
+    technique = "levenshtein" #sys.argv[1]
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file = os.path.join(dir_path, r"2020 Labelling and Clustering.xlsx")
 
     print("Clustering by " + technique)
 
     sheets = [
+        r'Filesystem-Consolidated',
         r'Docdiff-Consolidated',
-        r'Nile-Consolidated',
-        r'Filesystem-Consolidated'
+        r'Nile-Consolidated'
     ]
 
     for s in sheets:
+
+        print("Clustering data from {s} \t".format(s = s))
 
         if technique == 'semantic':
             labels_pred, labels_true, _, __ = read_excel_file(file, s, check_fp=True)
