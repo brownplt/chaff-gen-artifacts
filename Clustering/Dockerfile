@@ -7,8 +7,4 @@ COPY * .
 # Need to pip install requirements
 # Ensure correct python version is installed
 RUN pip install -r requirements.txt
-
-
-# Change syntactic similarity to reflect lack of docker
-
 ENTRYPOINT ["python3", "-m", "clustering"]
