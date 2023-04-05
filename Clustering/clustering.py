@@ -46,13 +46,11 @@ if __name__ == "__main__":
 
     print("[Starting...]")
     if len(sys.argv) != 3:
-         print("You supplied arguments : {l} \n Usage: <program> <assignment> <technique>. ".format(l= sys.argv))
+         print("You supplied arguments : {l} \n Usage: <program> <technique> <assignment>. ".format(l= sys.argv))
 
 
     technique = sys.argv[1]
     s = sys.argv[2]
-
-
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file = os.path.join(dir_path, r"Labelling and Clustering.ods")
