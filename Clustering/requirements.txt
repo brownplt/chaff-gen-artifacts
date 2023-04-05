@@ -5,3 +5,4 @@ pandas
 pandas-flavor
 distance
 openpyxl
+odfpy 

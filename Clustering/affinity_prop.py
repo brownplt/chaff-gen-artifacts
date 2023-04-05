@@ -45,6 +45,6 @@ def get_cluster(text, clusters):
 
 def get_predictions(f, sheetname, clusters, col):
 
-    df = pd.read_excel(f, sheet_name=sheetname)
+    df = pd.read_excel(f, sheet_name=sheetname, engine="odf")
     rows = df[col].to_numpy()
     return [get_cluster(code, clusters) for code in rows if not pd.isnull(code)]

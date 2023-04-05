@@ -2,8 +2,8 @@
 
 TODO:
 - [] Please use open formats for documents and preferably CSV or JSON for data.
-- []  List of claims NOT supported by the artifact
-- [] Found error in paper figure 3 (off by 1/ #N/A). If a WFE had no fingerprint, this was becasue (as Jack warned) it was impossible to identify the failing test in Pyret logs. In this case, we did not use these WFEs for our labelling or clustering analysis. 
+- [] List of claims NOT supported by the artifact
+- [] Found error in paper figure 3 (off by 1/ #N/A). If a WFE had no fingerprint, this was becasue (as Jack warned) it was impossible to identify the failing test in Pyret logs for Nile. In this case, we did not use these WFEs for our labelling or clustering analysis. 
 
 
 
@@ -70,9 +70,9 @@ This artifact can be found in the `Clustering` directory. It contains:
     - The misunderstanding label used as ground truth.
     - The corresponding feature vectors generated during semantic clustering.
 
-We present this artifact as data documenting our manual labelling of WFEs. The number of labelled (classified) WFEs should match Figure 3 of the paper. 
- 
-### Artifact 1.3: Cluster Evaluation
+We present this artifact as data documenting our manual labelling of WFEs.
+
+### Artifact 1.3 : Cluster Evaluation
 
 This artifact is presented as a Docker container that can be used to generate both semantic and syntactic clusters using this spreadsheet, and generate clustering evaluation metrics as described in the paper.. This file can either be pulled from Dockerhub:
 
@@ -90,10 +90,11 @@ docker build . -t sidprasad/wfe-clustering
 It can then be run as follows:
 
 ```
-docker run --rm -it sidprasad/wfe-clustering <option>
+docker run --rm -it sidprasad/wfe-clustering <option> <assignment>
 ```
 
 where option can be one of `semantic`, `leveshtein` or `tree_diff`.
+and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
 
 **Evaluating this artifact**: Depending on the provided option, this container should output V-Measure and Homogeneity scores represented in the paper.
 
@@ -101,16 +102,8 @@ where option can be one of `semantic`, `leveshtein` or `tree_diff`.
 - `leveshtein` : V-Measure and Homogeneity should match Table 1 of the paper.
 - `tree_diff` : V-Measure and Homogeneity should match Table 2 of the paper.
 
-### Artifact 1.4: Semantic Clusters
-
-This artifact is available in the  `Clustering\2020 Labelling and Clustering.xlsx` under the sheets `DocDiff-2020-Feature-Vectors`, `Nile-2020-Feature-Vectors`, and `Filesystem-2020-Feature-Vectors`. 
-It contains the final results of clustering all student wheat failing examples by semantic clustering.
-We do not, however, do not share student code, only unique identifiers for each WFE.
-We present this artifact as data documenting our generation of feature vectors.
-
  
 ## Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.
-
 
 Our second contribution involved evaluating chaffs generated using our clustering process that out-performed expert-written chaffs that had been finetuned over several years. This was done by examining the feature vectors created by wheat failing examples against chaffs presented to students.
 

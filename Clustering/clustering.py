@@ -7,7 +7,7 @@ from syntactic_similarity import tree_diff_metric, levenshtein
 import sys
 
 def read_excel_file(f, sheetname, check_fp = False):
-    df = pd.read_excel(f, sheet_name=sheetname)
+    df = pd.read_excel(f, sheet_name=sheetname, engine="odf")
     df = df.reset_index()  # make sure indexes pair with number of rows
 
     fingerprints = []
@@ -55,14 +55,14 @@ if __name__ == "__main__":
 
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    file = os.path.join(dir_path, r"2020 Labelling and Clustering.xlsx")
+    file = os.path.join(dir_path, r"Labelling and Clustering.ods")
 
     print("Clustering by " + technique)
 
     sheets = [
-        r'Filesystem-Consolidated',
-         r'Docdiff-Consolidated',
-         r'Nile-Consolidated'
+         r'Filesystem',
+         r'Docdiff',
+         r'Nile'
     ]
 
     if s not in sheets:
