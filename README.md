@@ -1,9 +1,8 @@
 # Artifacts: Conceptual Mutation Testing
 
 TODO:
-- [] Please use open formats for documents and preferably CSV or JSON for data.
-- [] List of claims NOT supported by the artifact
-- [] Found error in paper figure 3 (off by 1/ #N/A). If a WFE had no fingerprint, this was becasue (as Jack warned) it was impossible to identify the failing test in Pyret logs for Nile. In this case, we did not use these WFEs for our labelling or clustering analysis. 
+
+- [] Found error in paper figure 3 (off by 1 + #N/A). If a WFE had no fingerprint, this was becasue (as Jack warned) it was impossible to identify the failing test in Pyret logs for Nile. In this case, we did not use these WFEs for our labelling or clustering analysis. 
 
 
 
@@ -98,9 +97,9 @@ and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
 
 **Evaluating this artifact**: Depending on the provided option, this container should output V-Measure and Homogeneity scores represented in the paper.
 
-- `semantic` : V-Measure and Homogeneity should match Table 4 of the paper.
 - `leveshtein` : V-Measure and Homogeneity should match Table 1 of the paper.
 - `tree_diff` : V-Measure and Homogeneity should match Table 2 of the paper.
+- `semantic` : V-Measure and Homogeneity should match Table 4 of the paper.
 
  
 ## Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.
