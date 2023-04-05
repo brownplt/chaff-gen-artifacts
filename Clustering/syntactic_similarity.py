@@ -24,7 +24,11 @@ def exec_gumtree_tool(left, right):
     command = ["gumtree", "textdiff", "-f", "JSON", left, right]
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    err = result.stderr
+    err = result.stderr.decode()
+
+    if err is not None and len(err) > 0:
+        return err
+    
     output = result.stdout
     return output.decode()
 
@@ -51,6 +55,8 @@ def gumtree(t1, t2):
     def fix(txt):
         txt = ''.join(txt)
         txt = txt.replace('\\n', '\n')
+        txt = txt.replace(r'_x000D_', '') #Carriage return in Excel
+        #txt = txt.replace('\\r', '')
         return txt
 
     def write_file(path, txt):
@@ -76,6 +82,7 @@ def gumtree(t1, t2):
 
     if in_container:
         output = exec_gumtree_tool(left, right)
+
     else:
         output = exec_gumtree_via_docker(left_base, right_base)
     
@@ -87,7 +94,6 @@ def gumtree(t1, t2):
         print("-----------------")
         print(output)
         return 0/0
-
 
     as_dict = json.loads(output)
     return len(as_dict['actions'])
@@ -110,4 +116,5 @@ def levenshtein(texts):
     _similarity = -1*_similarity
     _similarity = _similarity.astype(np.float64)
     return _similarity
+
 

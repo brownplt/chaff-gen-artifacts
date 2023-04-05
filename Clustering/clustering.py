@@ -45,11 +45,15 @@ def print_metrics(labels_pred, labels_true):
 if __name__ == "__main__":
 
     print("[Starting...]")
-    if len(sys.argv) != 2:
-         print("You supplied arguments : {l} \n Usage: <program> <technique>. ".format(l= sys.argv))
+    if len(sys.argv) != 3:
+         print("You supplied arguments : {l} \n Usage: <program> <assignment> <technique>. ".format(l= sys.argv))
 
 
-    technique = "levenshtein" #sys.argv[1]
+    technique = sys.argv[1]
+    s = sys.argv[2]
+
+
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file = os.path.join(dir_path, r"2020 Labelling and Clustering.xlsx")
 
@@ -57,33 +61,35 @@ if __name__ == "__main__":
 
     sheets = [
         r'Filesystem-Consolidated',
-        r'Docdiff-Consolidated',
-        r'Nile-Consolidated'
+         r'Docdiff-Consolidated',
+         r'Nile-Consolidated'
     ]
 
-    for s in sheets:
+    if s not in sheets:
+        print("Invalid assignment name, must be one of {l}".format(l = sheets))
 
-        print("Clustering data from {s} \t".format(s = s))
 
-        if technique == 'semantic':
-            labels_pred, labels_true, _, __ = read_excel_file(file, s, check_fp=True)
-        elif technique == 'levenshtein':
+    print("Clustering data from {s} \t".format(s = s))
 
-            # Affinity prop will strip fingerprints and clusters from labels. Need to corellate.
+    if technique == 'semantic':
+        labels_pred, labels_true, _, __ = read_excel_file(file, s, check_fp=True)
+    elif technique == 'levenshtein':
 
-            _, labels_true, code, __ = read_excel_file(file, s)
-            affprop, _ = text_clustering(code, similarity=levenshtein)
-            cluster_dict = print_clusters(affprop, code)
-            labels_pred = get_predictions(file, s, cluster_dict, 'Test Code')
-        
-        elif technique == "tree_diff":
-            print("\t This may take some time...")
-            _, labels_true, __, code = read_excel_file(file, s)
-            affprop, _ = text_clustering(code, similarity=tree_diff_metric)
-            cluster_dict = print_clusters(affprop, code)
-            labels_pred = get_predictions(file, s, cluster_dict, 'Python Translation')
-        else:
-            print("Unknown option. The only valid options are: semantic, levenshtein, tree_diff")
-            sys.exit(-1)
+        # Affinity prop will strip fingerprints and clusters from labels. Need to corellate.
 
-        print_metrics(labels_pred=labels_pred, labels_true=labels_true)
+        _, labels_true, code, __ = read_excel_file(file, s)
+        affprop, _ = text_clustering(code, similarity=levenshtein)
+        cluster_dict = print_clusters(affprop, code)
+        labels_pred = get_predictions(file, s, cluster_dict, 'Test Code')
+    
+    elif technique == "tree_diff":
+        print("\t This may take some time...")
+        _, labels_true, __, code = read_excel_file(file, s)
+        affprop, _ = text_clustering(code, similarity=tree_diff_metric)
+        cluster_dict = print_clusters(affprop, code)
+        labels_pred = get_predictions(file, s, cluster_dict, 'Python Translation')
+    else:
+        print("Unknown option. The only valid options are: semantic, levenshtein, tree_diff")
+        sys.exit(-1)
+
+    print_metrics(labels_pred=labels_pred, labels_true=labels_true)
