@@ -7,6 +7,7 @@ import json
 import subprocess
 from tqdm import tqdm
 import sys
+import uuid
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -22,6 +23,22 @@ else:
     print("[Running in Docker container]")
 
 
+
+def get_filename():
+    u = uuid.uuid4().hex
+    fn = "{u}.py".format(u = u)
+    return os.path.join(dir_path, fn)
+
+def write_file(path, txt):
+    with open(path, mode='w', encoding="utf8") as f:
+        f.write(txt)
+
+def fix(txt):
+    txt = ''.join(txt)
+    txt = txt.replace('\\n', '\n')
+    txt = txt.replace(r'_x000D_', '') #Carriage return in Excel
+    return txt
+
 def exec_gumtree_tool(left, right):
     command = ["gumtree", "textdiff", "-f", "JSON", left, right]
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -32,7 +49,8 @@ def exec_gumtree_tool(left, right):
         return err
     
     output = result.stdout
-    return output.decode()
+    x =  output.decode()
+    return x
 
 
 def exec_gumtree_via_docker(left_base, right_base):
@@ -52,31 +70,8 @@ def exec_gumtree_via_docker(left_base, right_base):
     container.remove() # Free container
     return output
 
-def gumtree(t1, t2):
+def gumtree(left, right):
 
-    def fix(txt):
-        txt = ''.join(txt)
-        txt = txt.replace('\\n', '\n')
-        txt = txt.replace(r'_x000D_', '') #Carriage return in Excel
-        #txt = txt.replace('\\r', '')
-        return txt
-
-    def write_file(path, txt):
-        
-        with open(path, mode='w', encoding="utf8") as f:
-            f.write(txt)
-
-    t1 = fix(t1)
-    t2 = fix(t2)
-
-    base = os.path.join(dir_path, 'scratch')
-    left_base = os.path.join(base, 'left')
-    right_base = os.path.join(base, 'right')
-    left = os.path.join(left_base, 'a.py')
-    right = os.path.join(right_base, 'a.py')
-
-    write_file(left, t1)
-    write_file(right, t2)
     
     # Exec and read results.
 
@@ -86,7 +81,8 @@ def gumtree(t1, t2):
         output = exec_gumtree_tool(left, right)
 
     else:
-        output = exec_gumtree_via_docker(left_base, right_base)
+         #output = exec_gumtree_via_docker(left_base, right_base)
+         print("No longer supported. Can run in container only.")
     
     if ("'textdiff'" in output):
         print('Unexpected error in GumTree comparison!! There may be something wrong with the setup.')
@@ -96,7 +92,7 @@ def gumtree(t1, t2):
     as_dict = json.loads(output)
     return len(as_dict['actions'])
 
-def tree_diff_metric(texts):
+def tree_diff_metric_(texts):
     # Affinity prop requires negative similarities, so returns -1 * tree_diff(t1, t2)
     texts = np.asarray(texts, dtype=object)
 
@@ -114,6 +110,35 @@ def levenshtein_(texts):
     _similarity = -1*_similarity
     _similarity = _similarity.astype(np.float64)
     return _similarity
+
+
+
+def tree_diff_metric(texts):
+    texts = np.asarray(texts, dtype=object)
+    _similarity = []
+
+
+
+    def setup_file(t):
+        t = fix(t)
+        fn = get_filename()
+        write_file(fn, t)
+        return fn
+    
+    filenames = np.array([ setup_file(x) for x in texts])
+
+    for w2 in tqdm(filenames):
+        xx = lambda w1 : gumtree(w1,w2) 
+        arr = list(map(xx, filenames))
+
+        _similarity.append(np.array(arr))
+
+
+    _similarity = np.stack( _similarity, axis=0 )
+    _similarity = -1*np.array(_similarity)
+    _similarity = _similarity.astype(np.float64)
+    return _similarity
+
 
 
 # TODO: This is the future, need to figure it out.
