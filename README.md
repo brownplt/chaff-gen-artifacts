@@ -10,12 +10,21 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 
 # Getting Started
 
+
+
+
+Once in the reposi
+
 Our artifacts mostly take the form of data. We include one executable component, which 
 can be run as a Docker container. As a result, artifacts can be evaluated with only the 
 following software:
 
-- **Data**: Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets).
+- [Git ](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - Clone the repository by running:
+`git clone https://github.com/brownplt/chaff-gen-artifacts`
+- Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets).
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
+  - Once you have installed Docker, fetch the relevant container by running : `docker pull sidprasad/wfe-clustering`
 
 
 # Overview of Claims
