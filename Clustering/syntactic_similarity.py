@@ -5,6 +5,8 @@ import distance
 import os
 import json
 import subprocess
+from tqdm import tqdm
+import sys
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -88,12 +90,8 @@ def gumtree(t1, t2):
     
     if ("'textdiff'" in output):
         print('Unexpected error in GumTree comparison!! There may be something wrong with the setup.')
-        print(t1)
-        print("-----------------")
-        print(t2)
-        print("-----------------")
         print(output)
-        return 0/0
+        sys.exit(-1)
 
     as_dict = json.loads(output)
     return len(as_dict['actions'])
@@ -108,7 +106,7 @@ def tree_diff_metric(texts):
     return _similarity
 
 
-def levenshtein(texts):
+def levenshtein_(texts):
     # Affinity prop requires negative similarities, so returns -1 * levenshtein(t1, t2)
 
     texts = np.asarray(texts, dtype=object)
@@ -116,5 +114,33 @@ def levenshtein(texts):
     _similarity = -1*_similarity
     _similarity = _similarity.astype(np.float64)
     return _similarity
+
+
+# TODO: This is the future, need to figure it out.
+def levenshtein(texts):
+    # Affinity prop requires negative similarities, so returns -1 * levenshtein(t1, t2)
+
+    texts = np.asarray(texts, dtype=object)
+    _similarity = []
+
+
+
+    for w2 in tqdm(texts):
+
+        xx = lambda w1 : distance.levenshtein(list(w1),list(w2)) 
+
+
+        #dist = np.vectorize( )
+        #arr = lit(map(dist,texts))
+        arr = list(map(xx, texts))
+
+        _similarity.append(np.array(arr))
+
+
+    _similarity = np.stack( _similarity, axis=0 )
+    _similarity = -1*np.array(_similarity)
+    _similarity = _similarity.astype(np.float64)
+    return _similarity
+
 
 

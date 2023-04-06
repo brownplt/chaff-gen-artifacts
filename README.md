@@ -10,9 +10,12 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 
 # Getting Started
 
-Evaluating this artifact requires the following software:
-- Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets)
-- [Docker](https://docs.docker.com/get-docker/)
+Our artifacts mostly take the form of data. We include one executable component, which 
+can be run as a Docker container. As a result, artifacts can be evaluated with only the 
+following software:
+
+- **Data**: Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets).
+- A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
 
 
 # Overview of Claims
@@ -95,8 +98,8 @@ and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
 - `semantic` : V-Measure and Homogeneity should match those in `Table 4` of the paper.
 
 
-*`levenshtein` and `tree_diff` clustering utlize Affinity Propagation. The initial choice of exemplars in Affinity Propagation (AP) is random, and this can affect the final clustering result. Additionally, the algorithm involves updating the message-passing matrices between exemplars and data points, which can also be affected by random initialization. To mitigate the effect of randomness on the final clustering result, we ran AP multiple times, presenting the 
-best clustering result with respect to ground truth in Tables 1 and 2 of the paper. Even these best-results resulted in very low clustering correspondence.
+*`levenshtein` and `tree_diff` clustering utlize Affinity Propagation. The initial choice of exemplars in Affinity Propagation (AP) is random, and this can affect the final clustering result. 
+To mitigate the effect of randomness on the final clustering result, we ran AP multiple times, presenting the best-clustering result with respect to ground truth in Tables 1 and 2 of the paper. Even these best-results resulted in very low clustering correspondence. The lower V-Measure and Homogeneity, in Tables 1 and 2, the stronger our claims.
 
  
 ## Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.

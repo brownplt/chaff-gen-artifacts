@@ -6,3 +6,4 @@ pandas-flavor
 distance
 openpyxl
 odfpy 
+tqdm
