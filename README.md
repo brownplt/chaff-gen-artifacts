@@ -2,7 +2,6 @@
 
 This repository contains artifacts for the paper:
 
-
 Conceptual Mutation Testing for Student Programming Misconceptions
 by Siddhartha Prasad, Ben Greenman, Tim Nelson, and Shriram Krishnamurthi
 
@@ -91,9 +90,13 @@ and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
 
 **Evaluating this artifact**: Depending on the provided option, this container should output V-Measure and Homogeneity scores represented in the paper.
 
-- `leveshtein` : V-Measure and Homogeneity should match Table 1 of the paper.
-- `tree_diff` : V-Measure and Homogeneity should match Table 2 of the paper.
-- `semantic` : V-Measure and Homogeneity should match Table 4 of the paper.
+- `leveshtein` : V-Measure and Homogeneity should not exceed* `Table 1` of the paper.
+- `tree_diff` : V-Measure and Homogeneity should not exceed* those in `Table 2` of the paper.
+- `semantic` : V-Measure and Homogeneity should match those in `Table 4` of the paper.
+
+
+*`levenshtein` and `tree_diff` clustering utlize Affinity Propagation. The initial choice of exemplars in Affinity Propagation (AP) is random, and this can affect the final clustering result. Additionally, the algorithm involves updating the message-passing matrices between exemplars and data points, which can also be affected by random initialization. To mitigate the effect of randomness on the final clustering result, we ran AP multiple times, presenting the 
+best clustering result with respect to ground truth in Tables 1 and 2 of the paper. Even these best-results resulted in very low clustering correspondence.
 
  
 ## Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.

@@ -24,7 +24,6 @@ def read_excel_file(f, sheetname, check_fp = False):
         fingerprinted = not pd.isnull(fp)
         not_all_fs = fingerprinted and len(set(list(fp))) > 1
 
-
         if fingerprinted and ( (not check_fp) or not_all_fs): 
             fingerprints.append(fp)
             classifications.append(classification)

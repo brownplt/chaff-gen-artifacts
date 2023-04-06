@@ -4,9 +4,12 @@ import pandas as pd
 from sklearn.cluster import AffinityPropagation
 
 def text_clustering(texts, similarity):
+
+    citer = 5
+
     _similarity = similarity(texts)
     _affprop = AffinityPropagation(affinity="precomputed", damping=0.5, verbose=True,
-        random_state=0, max_iter=500, convergence_iter=5)
+        random_state=0, max_iter=500, convergence_iter=citer)
     _affprop.fit(_similarity)
     return _affprop, _similarity
 
