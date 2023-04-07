@@ -42,7 +42,7 @@ docker pull sidprasad/chaff-eval:latest
 docker pull sidprasad/fv-eval:latest
 ```
 
-Ensure that images have the following sha256 digests, but running docker images --digests. You should see the following in the table:
+Ensure that images have the following sha256 digests, by running `docker images --digests`. You should see the following in the table:
 
 ```
 REPOSITORY                 TAG       DIGEST                                                                    
