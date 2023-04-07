@@ -9,20 +9,9 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 data_path = os.path.join(dir_path, "data")
 
 def read_csv(f):
-    fingerprints = []
+
     with open(f, mode='r') as infile:
         reader = csv.reader(infile)
-
-
-        # for rows in reader:
-            
-        #     #fv = rows[2]
-        #     # We filter out rows with all 'm' during analysis.
-        #     #all_m = len(set(list(fv))) == 1 and (fv[0] = 'm')
-
-        #     if not all_m: 
-        #         fingerprints.append(rows[2])
-
 
         fvs = [rows[1] for rows in reader if not ( len(set(list(rows[1]))) == 1 and (rows[1][0] == 'm') )  ]
     
