@@ -16,7 +16,7 @@ following software:
 
 - [Git ](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
   - Clone the repository by running: `git clone https://github.com/brownplt/chaff-gen-artifacts`
-  - Ensure that you are on commit `FILL` by running `git checkout FILL`
+
 - Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets).
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
   - Once you have installed Docker, fetch the relevant containers by running : 
