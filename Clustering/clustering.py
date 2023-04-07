@@ -45,8 +45,8 @@ if __name__ == "__main__":
 
     print("[Starting...]")
     if len(sys.argv) != 3:
-         print("You supplied arguments : {l} \n Usage: <program> <technique> <assignment>. ".format(l= sys.argv))
-
+        print("You supplied arguments : {l} \n Usage: <program> <technique> <assignment>. ".format(l= sys.argv))
+        sys.exit(1) 
 
     technique = sys.argv[1]
     s = sys.argv[2]
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     sheets = [
          r'Filesystem',
-         r'Docdiff',
+         r'DocDiff',
          r'Nile'
     ]
 
