@@ -45,6 +45,12 @@ cd ../FeatureVectorExamination
 docker build . -t sidprasad/fv-eval:latest
 ```
 
+
+### Ensuring things work as expected:
+
+Run a quick experiment, `docker run --rm -it sidprasad/wfe-clustering levenshtein DocDiff` to ensure Docker is installed
+as expected.
+
 # Overview of Claims
 
 Mutation testing for example suites is an effective way to make sure students solve the
