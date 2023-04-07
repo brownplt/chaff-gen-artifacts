@@ -8,6 +8,20 @@ by Siddhartha Prasad, Ben Greenman, Tim Nelson, and Shriram Krishnamurthi
 and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 
 
+- [Artifacts: Conceptual Mutation Testing](#artifacts-conceptual-mutation-testing)
+- [Getting Started](#getting-started)
+    - [Ensuring things work as expected:](#ensuring-things-work-as-expected)
+- [Overview of Claims](#overview-of-claims)
+  - [Claim 1: A method to generate effective mutants at low cost by clustering and analyzing incorrect examples](#claim-1-a-method-to-generate-effective-mutants-at-low-cost-by-clustering-and-analyzing-incorrect-examples)
+    - [Artifact 1.1: Decomposition of Problems](#artifact-11-decomposition-of-problems)
+    - [Artifact 1.2: Labeled Submissions and Feature Vectors](#artifact-12-labeled-submissions-and-feature-vectors)
+    - [Artifact 1.3 : Cluster Evaluation](#artifact-13--cluster-evaluation)
+    - [Artifact 1.4: Feature Vectors (Semantic CLusters)](#artifact-14-feature-vectors-semantic-clusters)
+  - [Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.](#claim-2-evidence-that-chaffs-selected-using-our-clustering-method-out-performed-expert-written-mutants)
+    - [Artifact 2.1](#artifact-21)
+    - [Artifact 2.2](#artifact-22)
+
+
 # Getting Started
 
 Our artifacts mostly take the form of data. We include one executable component, which 
