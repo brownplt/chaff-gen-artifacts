@@ -236,13 +236,12 @@ Count   Feature Vector
 
 **Evaluating this artifact**: Depending on the provided assignment, this container output  a list of the most common feature vectors per assignment in the paper, as well as WFE pass count.
 
-- `docker run --rm -it sidprasad/fv-eval:latest DocDiff` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 5` of the paper.   
+- `docker run --rm -it sidprasad/fv-eval:latest DocDiff` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 5` of the paper. If two clusters had the same size, we chose an illustrative example in `Table 5`.  
 
 - `docker run --rm -it sidprasad/fv-eval:latest Nile` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 6` of the paper.
-- `docker run --rm -it sidprasad/fv-eval:latest Filesystem` : WFE pass counts should match those presented in `Table 8` of the paper. However, we discovered an error in our script while packaging artifacts for evaluation. As a result, FIlesystem clusters should look as follows:
+- `docker run --rm -it sidprasad/fv-eval:latest Filesystem` : WFE pass counts should match those presented in `Table 8` of the paper. However, we discovered an error in our script while packaging artifacts for evaluation. As a result, the top 6 clusters for Filesystem should look as follows:
 
 ```
-Clusters for Filesystem
 Count   Feature Vector
 2502    dddddddddddddd
 232     dddmdddddddddd
@@ -250,28 +249,6 @@ Count   Feature Vector
 63      mmdmmmmmmmmddm
 53      ddmdddddddddmd
 35      ddddddmddddddd
-34      mddddddddddddd
-33      dmdddddddddddm
-25      dmdddddddddddd
-25      mmmmmmmmdmmmmm
-23      mdmmmmmmmmmmmm
-21      ddddddddddmddd
-15      dddddddddddmdd
-15      dddddddmdddddd
-11      mdmmmmmmmdmmmd
-11      dmdddddddmdddm
-10      mdddddmddddddd
-9       mdmmmmmmmmmmmd
-9       dddmdddmdddddd
-6       ddddddddmddddm
-6       dmdddddddmdddd
-4       ddmdddddmdddmd
-4       dddddmdddddddd
-3       dddddddmddmddd
-2       mmdmmdmmmmmmdm
-2       ddmddddddddmmd
-2       ddddmmdddddddd
-1       ddddmddddddddd
 ```
 
 `Table 7` of the paper will be updated to match this in the final paper revision.
