@@ -92,6 +92,7 @@ def gen_fig_9(fvs_sets):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("You supplied arguments : {l} \n Usage: <program> <assignment>. ".format(l= sys.argv))
+        sys.exit(-1)
 
     assignment = sys.argv[1]
 
