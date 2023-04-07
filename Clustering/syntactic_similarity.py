@@ -36,7 +36,8 @@ def write_file(path, txt):
 def fix(txt):
     txt = ''.join(txt)
     txt = txt.replace('\\n', '\n')
-    txt = txt.replace(r'_x000D_', '') #Carriage return in Excel
+    txt = txt.replace(r'_x000D_', '\n') #Carriage return in Excel
+    txt = txt.replace(r'\\r', '\n') #Carriage return in Excel
     return txt
 
 def exec_gumtree_tool(left, right):
@@ -87,6 +88,11 @@ def gumtree(left, right):
     if ("'textdiff'" in output):
         print('Unexpected error in GumTree comparison!! There may be something wrong with the setup.')
         print(output)
+        os.system("cat " + left)
+
+        print("\n----------------\n")
+
+        os.system("cat " + right)
         sys.exit(-1)
 
     as_dict = json.loads(output)
