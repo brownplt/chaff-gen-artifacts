@@ -24,7 +24,7 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 
 # Getting Started
 
-Our artifacts mostly take the form of data. We include one executable component, which 
+Our artifacts mostly take the form of data. We include 3 executable components, which 
 can be run as a Docker container. As a result, artifacts can be evaluated with only the 
 following software:
 
@@ -35,11 +35,22 @@ following software:
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
   - Once you have installed Docker, fetch the relevant containers by running : 
 
+
 ```
-docker pull sidprasad/wfe-clustering@sha256:334eacd2e1581d96285c0ce1c768f3c9670e59f906256792af41d8a7e70c8a7b
-docker pull sidprasad/chaff-eval@sha256:29680a475ef9dccd3c2e665f617f64f74470a0435b33d653035bf9b3e1f2dcb6
-docker pull sidprasad/fv-eval@sha256:2c68002e7c5a5dd749f466f0984eddf411a3956405da50807b697cb8a0ac4ef1
+docker pull sidprasad/wfe-clustering:latest
+docker pull sidprasad/chaff-eval:latest
+docker pull sidprasad/fv-eval:latest
 ```
+
+Ensure that images have the following sha256 digests, but running docker images --digests. You should see the following in the table:
+
+```
+REPOSITORY                 TAG       DIGEST                                                                    
+sidprasad/fv-eval          latest    sha256:2c68002e7c5a5dd749f466f0984eddf411a3956405da50807b697cb8a0ac4ef1   
+sidprasad/chaff-eval       latest    sha256:29680a475ef9dccd3c2e665f617f64f74470a0435b33d653035bf9b3e1f2dcb6  
+sidprasad/wfe-clustering   latest    sha256:334eacd2e1581d96285c0ce1c768f3c9670e59f906256792af41d8a7e70c8a7b   
+```
+
 
 **Alternately**, you can build these containers from source (We recommend Docker version >= `20.10.14`)
 
@@ -54,11 +65,15 @@ cd ../FeatureVectorExamination
 docker build . -t sidprasad/fv-eval:latest
 ```
 
+Note that if you build these from source, digests will differ from prebuilt images.
 
 ### Ensuring things work as expected:
 
-Run a quick experiment, `docker run --rm -it sidprasad/wfe-clustering levenshtein DocDiff` to ensure Docker is installed
-as expected.
+Run a quick experiment, execute the following to ensure Docker is installed as expected. 
+
+- `docker run --rm -it sidprasad/wfe-clustering levenshtein DocDiff` This should print text in clusters, a V Measure score, and a Homogeneity score.
+- `docker run --rm -it sidprasad/chaff-eval DocDiff`: This may take a few minutes to run, and should output 2 tables.
+- `docker run --rm -it sidprasad/fv-eval DocDiff`: This should output A list as well as a large table.
 
 # Overview of Claims
 
@@ -118,7 +133,15 @@ docker run --rm -it sidprasad/wfe-clustering <option> <assignment>
 ```
 
 where option can be one of `semantic`, `levenshtein` or `tree_diff`.
-and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
+and assignment should match one of `DocDiff`, `Nile` or `Filesystem`.
+
+`levenshtein` and `tree_diff` clustering are quite resource intensive, and may take several minutes to a few hours to complete. As a result, we display progress bars as a convenience when using these options. These  look something like:
+
+```
+Clustering by levenshtein
+Clustering data from Nile
+  1%█▋             | 1/122 [00:26<53:34, 26.56s/it]
+```
 
 **Evaluating this artifact**: Depending on the provided option, this container should output V-Measure and Homogeneity scores represented in the paper.
 
@@ -138,11 +161,83 @@ This container can be run as follows:
 ```
 docker run --rm -it sidprasad/fv-eval:latest <assignment>
 ```
-where assignment should match one of `DocDiff`, `Nile` or `Filesystem`
+where assignment should match one of `DocDiff`, `Nile` or `Filesystem`. Example output should look like:
+
+```
+WFE pass count for DocDiff. This should match Table 8.
+[148, 117, 0, 126, 57, 92, 71, 85, 131, 186, 280, 195, 120, 111]
+
+Clusters for DocDiff
+Count   Feature Vector
+800     dddddddddddddd
+68      dddddddddmdddd
+66      mddddddddmdddd
+52      ddddmddddddddd
+49      dddmdddddddddd
+48      mddddddddddddd
+48      ddddddddddmdmm
+38      dddddddddmdmdd
+30      dddddddddddddm
+28      dmdddddmmdmmdd
+24      dddddmdddddddd
+23      ddddddmddddddd
+22      dmdddddddddddd
+20      dmdddmdmmdmddd
+15      ddddddddddmddd
+15      dmdddmdmmdmmdd
+13      mddddddddmdmdd
+13      ddddddddddddmd
+13      ddddddmdddmmmm
+12      ddddddddddmmmm
+11      dddmddddmdmmdd
+11      dddmddmdmdmmdd
+9       dddmddmdmdmddd
+9       mddddddmmdmddd
+6       dmdmdddddddddd
+6       dddmdmddddmmmd
+6       dddmddddddmmmd
+6       dddmddddddmmdd
+5       dddmdmddmdmmmd
+5       mdddmddddddddd
+5       ddddddmdddmddd
+5       dddmddmdddmmdd
+4       dmdddddmmdmddd
+4       dddmdmddddmdmd
+4       dmddddddddmmdd
+4       ddddddddmdmddd
+3       dmdddmddmdmddd
+3       ddddddddddmdmd
+3       dmdddmddmdmmdd
+3       mdddddddmdmddd
+3       dmdddddmddmmmm
+3       dddmddmddddddd
+3       dddddmddddmmdd
+2       dmdddmddddmmdd
+2       dmdddddmddmmmd
+2       ddddddmdddmdmm
+2       ddddddddddmmdd
+2       dddddmddmdmddd
+1       dmdmdddddddddm
+1       mdddddddddmddd
+1       mddddddmddmddd
+1       dddmdmddmdmmdd
+1       dmdddddmddmmdd
+1       dddddmddmdmmdd
+1       dddmdmdddddddm
+1       mmdddddddddddd
+1       dmdmdddmddmmmd
+1       ddddddddmdmmdd
+1       dddmddddddmddd
+1       dmdddmddddmddd
+1       dddddmddddmmmm
+1       ddddddddddmmmd
+1       mddddddmmmmddd
+```
 
 **Evaluating this artifact**: Depending on the provided assignment, this container output  a list of the most common feature vectors per assignment in the paper, as well as WFE pass count.
 
-- `docker run --rm -it sidprasad/fv-eval:latest DocDiff` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 5` of the paper.
+- `docker run --rm -it sidprasad/fv-eval:latest DocDiff` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 5` of the paper. Example output may look something like:
+  
 
 - `docker run --rm -it sidprasad/fv-eval:latest Nile` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 6` of the paper.
 - `docker run --rm -it sidprasad/fv-eval:latest Filesystem` : WFE pass counts should match those presented in `Table 8` of the paper. The top 6 largest clusters should match those in `Table 7` of the paper.
@@ -184,11 +279,46 @@ This analysis can be re-run using a Docker container as follows:
 ```
 docker run --rm -it sidprasad/chaff-eval:latest <assignment>
 ```
-
 where assignment should match one of `DocDiff`, `Nile` or `Filesystem`.
+
+Example output should look like:
+
+```
+Assignment      Number of WFEs          WFEs in 1-m or 2-m clusters
+Filesystem-2020 3359                    144 (4.286990175647514%)
+Filesystem-2021 3121                    145 (4.645946811919257%)
+Filesystem-2022 895                     105 (11.731843575418994%)
+
+
+Evaluation for Statistical Significance using a 2-tailed Z test:
+Filesystem-2021 vs Filesystem-2020:     p = 0.25205576349493997  Z = -0.6680345680639307         d = -0.016267758450340192       with CI : [-0.06  0.03]
+Filesystem-2022 vs Filesystem-2020:     p = 2.354439491365171e-10        Z = -6.228511377531537  d = -0.28138932858170806        with CI : [-0.35 -0.21]
+Filesystem-2022 vs Filesystem-2021:     p = 2.318715159624573e-09        Z = -5.859686061058633  d = -0.25951207993446357        with CI : [-0.33 -0.19]
+```
 
 
 **Evaluating this artifact**: Depending on the provided assignment, this container outputs a table comparing 1-m and 2-m wfes for handwritten chaffs (2020 and 2021) and generated chaffs (2022). It also displays the results of a 2-tailed Z test for statistical significance.
 
 
-1-m and 2-m WFE pass counts should match those presented in `Figure 4` of the paper (when rounded). The results of a Z-test should match those presented in `Table 9` (when rounded).
+- `docker run --rm -it sidprasad/chaff-eval:latest DocDiff`: 1-m and 2-m WFE pass counts should match those presented in `Figure 4` of the paper (when rounded). The results of a Z-test should match those presented in `Table 9` (when rounded).
+
+
+- `docker run --rm -it sidprasad/chaff-eval:latest Nile`: 1-m and 2-m WFE pass counts should match those presented in `Figure 4` of the paper (when rounded). The results of a Z-test should match those presented in `Table 9` (when rounded).
+
+  
+- `docker run --rm -it sidprasad/chaff-eval:latest Filesystem`:  Output should be as follows:
+
+```
+Assignment      Number of WFEs          WFEs in 1-m or 2-m clusters
+Filesystem-2020 3359                    144 (4.286990175647514%)
+Filesystem-2021 3121                    145 (4.645946811919257%)
+Filesystem-2022 895                     105 (11.731843575418994%)
+
+
+Evaluation for Statistical Significance using a 2-tailed Z test:
+Filesystem-2021 vs Filesystem-2020:     p = 0.25205576349493997  Z = -0.6680345680639307         d = -0.016267758450340192       with CI : [-0.06  0.03]
+Filesystem-2022 vs Filesystem-2020:     p = 2.354439491365171e-10        Z = -6.228511377531537  d = -0.28138932858170806        with CI : [-0.35 -0.21]
+Filesystem-2022 vs Filesystem-2021:     p = 2.318715159624573e-09        Z = -5.859686061058633  d = -0.25951207993446357        with CI : [-0.33 -0.19]
+```
+
+This is because we discovered an error in our WFE counts for Filesystem 2020 while carrying out Filesystem evaluation. `Figure 4` and `Table 9` will be updated accordingly in the final paper revision.
