@@ -10,29 +10,24 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 
 # Getting Started
 
-
-
-
-Once in the reposi
-
 Our artifacts mostly take the form of data. We include one executable component, which 
 can be run as a Docker container. As a result, artifacts can be evaluated with only the 
 following software:
 
 - [Git ](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - Clone the repository by running:
-`git clone https://github.com/brownplt/chaff-gen-artifacts`
+  - Clone the repository by running: `git clone https://github.com/brownplt/chaff-gen-artifacts`
+  - Ensure that you are on commit `FILL` by running `git checkout FILL`
 - Spreadsheet software able to open Open Document Spreadsheet (`.ods`) files (Microsoft Excel, LibreOffice, Google Sheets).
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
   - Once you have installed Docker, fetch the relevant containers by running : 
 
 ```
-docker pull sidprasad/wfe-clustering:latest
-docker pull sidprasad/chaff-eval:latest
-docker pull sidprasad/fv-eval:latest
+docker pull sidprasad/wfe-clustering@sha256:334eacd2e1581d96285c0ce1c768f3c9670e59f906256792af41d8a7e70c8a7b
+docker pull sidprasad/chaff-eval@sha256:29680a475ef9dccd3c2e665f617f64f74470a0435b33d653035bf9b3e1f2dcb6
+docker pull sidprasad/fv-eval@sha256:2c68002e7c5a5dd749f466f0984eddf411a3956405da50807b697cb8a0ac4ef1
 ```
 
-Alternately, you can build these containers from source:
+**Alternately**, you can build these containers from source (We recommend Docker version >= `20.10.14`)
 
 ```
 cd Clustering

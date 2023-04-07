@@ -2,7 +2,7 @@ FROM python
 RUN mkdir /src
 ENV OUTDATED_IGNORE=1
 WORKDIR /src
-COPY * .
+COPY * ./
 ADD data /src/data
 
 # Need to pip install requirements

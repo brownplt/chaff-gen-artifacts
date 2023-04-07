@@ -2,7 +2,7 @@ FROM python
 RUN mkdir /src
 ENV OUTDATED_IGNORE=1
 WORKDIR /src
-COPY * .
+COPY * ./
 ADD DocDiff-Chaffs /src/DocDiff-Chaffs
 ADD Nile-Chaffs /src/Nile-Chaffs
 ADD Filesystem-Chaffs /src/Filesystem-Chaffs
