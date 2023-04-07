@@ -16,7 +16,7 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
     - [Artifact 1.1: Decomposition of Problems](#artifact-11-decomposition-of-problems)
     - [Artifact 1.2: Labeled Submissions and Feature Vectors](#artifact-12-labeled-submissions-and-feature-vectors)
     - [Artifact 1.3 : Cluster Evaluation](#artifact-13--cluster-evaluation)
-    - [Artifact 1.4: Feature Vectors (Semantic CLusters)](#artifact-14-feature-vectors-semantic-clusters)
+    - [Artifact 1.4: Feature Vectors (Semantic Clusters)](#artifact-14-feature-vectors-semantic-clusters)
   - [Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.](#claim-2-evidence-that-chaffs-selected-using-our-clustering-method-out-performed-expert-written-mutants)
     - [Artifact 2.1](#artifact-21)
     - [Artifact 2.2](#artifact-22)
@@ -130,7 +130,7 @@ and assignment should match one of `DocDiff`, `Nile` or `Filesystem`
 *`levenshtein` and `tree_diff` clustering utlize Affinity Propagation (AP), which involves a degree of randomness. To mitigate the effect of randomness on the final clustering result, we ran AP multiple times, presenting the best-clustering result with respect to ground truth in Tables 1 and 2 of the paper. Even these best-results resulted in very low clustering correspondence.
 
 
-### Artifact 1.4: Feature Vectors (Semantic CLusters) 
+### Artifact 1.4: Feature Vectors (Semantic Clusters) 
 We provide the final results of feature vector generation for all student wheat failing examples by semantic clustering in the `FeatureVectorExamination` directory. We also provide a Docker container that can be used to evaluate these Feature Vectors.
 
 This container can be run as follows:
