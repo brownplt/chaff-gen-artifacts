@@ -1,22 +1,0 @@
-[Running in Docker container]
-[Starting...]
-Clustering by levenshtein
-Clustering data from Nile 	
-  0% 0/122 [00:00<?, ?it/s]^C  0% 0/122 [00:02<?, ?it/s]
-Traceback (most recent call last):
-  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
-    exec(code, run_globals)
-  File "/src/clustering.py", line 78, in <module>
-    affprop, _ = text_clustering(code, similarity=levenshtein)
-  File "/src/affinity_prop.py", line 10, in text_clustering
-    _similarity = similarity(texts)
-  File "/src/syntactic_similarity.py", line 166, in levenshtein
-    arr = list(map(xx, texts))
-  File "/src/syntactic_similarity.py", line 161, in <lambda>
-    xx = lambda w1 : distance.levenshtein(list(w1),list(w2)) 
-  File "/usr/local/lib/python3.8/dist-packages/distance/_levenshtein.py", line 61, in levenshtein
-    column[y] = min(column[y] + 1, column[y - 1] + 1, last + cost)
-KeyboardInterrupt
-
