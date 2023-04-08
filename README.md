@@ -44,11 +44,12 @@ docker pull sidprasad/fv-eval:latest
 
 Ensure that images have the following sha256 digests, by running `docker images --digests`. You should see the following in the table:
 
+
 ```
 REPOSITORY                 TAG       DIGEST                                                                    
-sidprasad/fv-eval          latest    sha256:2c68002e7c5a5dd749f466f0984eddf411a3956405da50807b697cb8a0ac4ef1   
+sidprasad/fv-eval          latest    sha256:daf0985f374f6675b72de2191a4c67d84b1eb0a823bff8edc15c5bf83027b1f6   
 sidprasad/chaff-eval       latest    sha256:29680a475ef9dccd3c2e665f617f64f74470a0435b33d653035bf9b3e1f2dcb6  
-sidprasad/wfe-clustering   latest    sha256:334eacd2e1581d96285c0ce1c768f3c9670e59f906256792af41d8a7e70c8a7b   
+sidprasad/wfe-clustering   latest    sha256:08ce554b9d63a48b2e16fc0f953dce3801a5d1ad5978cadb31b195833d499b69
 ```
 
 
