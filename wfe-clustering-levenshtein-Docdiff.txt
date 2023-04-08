@@ -1,0 +1,54 @@
+[Running in Docker container]
+[Starting...]
+Clustering by levenshtein
+Invalid assignment name, must be one of ['Filesystem', 'DocDiff', 'Nile']
+Clustering data from Docdiff 	
+^CTraceback (most recent call last):
+  File "/usr/lib/python3.8/sre_compile.py", line 312, in _optimize_charset
+    charmap[i] = 1
+IndexError: bytearray index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/src/clustering.py", line 77, in <module>
+    _, labels_true, code, __ = read_excel_file(file, s)
+  File "/src/clustering.py", line 10, in read_excel_file
+    df = pd.read_excel(f, sheet_name=sheetname, engine="odf")
+  File "/usr/local/lib/python3.8/dist-packages/pandas/util/_decorators.py", line 311, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.8/dist-packages/pandas/io/excel/_base.py", line 457, in read_excel
+    io = ExcelFile(io, storage_options=storage_options, engine=engine)
+  File "/usr/local/lib/python3.8/dist-packages/pandas/io/excel/_base.py", line 1419, in __init__
+    self._reader = self._engines[engine](self._io, storage_options=storage_options)
+  File "/usr/local/lib/python3.8/dist-packages/pandas/io/excel/_odfreader.py", line 36, in __init__
+    super().__init__(filepath_or_buffer, storage_options=storage_options)
+  File "/usr/local/lib/python3.8/dist-packages/pandas/io/excel/_base.py", line 507, in __init__
+    if not isinstance(filepath_or_buffer, (ExcelFile, self._workbook_class)):
+  File "/usr/local/lib/python3.8/dist-packages/pandas/io/excel/_odfreader.py", line 40, in _workbook_class
+    from odf.opendocument import OpenDocument
+  File "/usr/local/lib/python3.8/dist-packages/odf/opendocument.py", line 38, in <module>
+    import odf.manifest as manifest
+  File "/usr/local/lib/python3.8/dist-packages/odf/manifest.py", line 27, in <module>
+    from odf.element import Element
+  File "/usr/local/lib/python3.8/dist-packages/odf/element.py", line 86, in <module>
+    _xml_filtered_chars_re = _range_seq_to_re(_xml10_illegal_ranges + _xml_discouraged_ranges)
+  File "/usr/local/lib/python3.8/dist-packages/odf/element.py", line 79, in _range_seq_to_re
+    return re.compile(u"[{}]".format(
+  File "/usr/lib/python3.8/re.py", line 252, in compile
+    return _compile(pattern, flags)
+  File "/usr/lib/python3.8/re.py", line 304, in _compile
+    p = sre_compile.compile(pattern, flags)
+  File "/usr/lib/python3.8/sre_compile.py", line 768, in compile
+    code = _code(p, flags)
+  File "/usr/lib/python3.8/sre_compile.py", line 604, in _code
+    _compile_info(code, p, flags)
+  File "/usr/lib/python3.8/sre_compile.py", line 590, in _compile_info
+    charset, hascased = _optimize_charset(charset)
+  File "/usr/lib/python3.8/sre_compile.py", line 320, in _optimize_charset
+    charmap += b'\0' * 0xff00
+KeyboardInterrupt

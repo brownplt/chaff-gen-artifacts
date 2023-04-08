@@ -1,0 +1,6 @@
+[Running in Docker container]
+[Starting...]
+Clustering by tree_diff
+Clustering data from Filesystem 	
+	 This may take some time...
+  0% 0/103 [00:00<?, ?it/s]

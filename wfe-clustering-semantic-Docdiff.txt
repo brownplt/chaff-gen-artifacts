@@ -1,0 +1,18 @@
+^CTraceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/src/clustering.py", line 3, in <module>
+    import pandas as pd
+  File "/usr/local/lib/python3.8/dist-packages/pandas/__init__.py", line 22, in <module>
+    from pandas.compat import is_numpy_dev as _is_numpy_dev
+  File "/usr/local/lib/python3.8/dist-packages/pandas/compat/__init__.py", line 14, in <module>
+    from pandas.compat.numpy import (
+  File "/usr/local/lib/python3.8/dist-packages/pandas/compat/numpy/__init__.py", line 8, in <module>
+    _nlv = Version(_np_version)
+  File "/usr/local/lib/python3.8/dist-packages/pandas/util/version/__init__.py", line 356, in __init__
+    self._key = _cmpkey(
+  File "/usr/local/lib/python3.8/dist-packages/pandas/util/version/__init__.py", line 534, in _cmpkey
+    reversed(list(itertools.dropwhile(lambda x: x == 0, reversed(release))))
+KeyboardInterrupt

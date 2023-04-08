@@ -167,3 +167,5 @@ cython_debug/
 *.jarr
 scratch/**
 .pyret/**
+
+ wfe-clustering-*.txt
