@@ -11,6 +11,7 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
 - [Artifacts: Conceptual Mutation Testing](#artifacts-conceptual-mutation-testing)
 - [Getting Started](#getting-started)
     - [Ensuring things work as expected:](#ensuring-things-work-as-expected)
+- [\[Optional\] Running all executable components](#optional-running-all-executable-components)
 - [Overview of Claims](#overview-of-claims)
   - [Claim 1: A method to generate effective mutants at low cost by clustering and analyzing incorrect examples](#claim-1-a-method-to-generate-effective-mutants-at-low-cost-by-clustering-and-analyzing-incorrect-examples)
     - [Artifact 1.1: Decomposition of Problems](#artifact-11-decomposition-of-problems)
@@ -35,6 +36,7 @@ following software:
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
   - Once you have installed Docker, fetch the relevant containers by running : 
 
+Additionally, we include a script that requires the use of a Unix-like command line shell. However, this is not required to evaluate the artifact.
 
 ```
 docker pull sidprasad/wfe-clustering:latest
@@ -76,6 +78,41 @@ Run a quick experiment, execute the following to ensure Docker is installed as e
 - `docker run --rm -it sidprasad/chaff-eval DocDiff`: This may take a few minutes to run, and should output 2 tables.
 - `docker run --rm -it sidprasad/fv-eval DocDiff`: This should output A list as well as a large table.
 
+
+# [Optional] Running all executable components
+
+The sections below describe data and executable components that comprise this artifact,
+alongside how to evaluate these components. We recommend following these guidelines in order.
+However, if you would rather *first* run *all* executable components, you can do so by running
+the `run-all.sh` script.
+
+Since it launches several long-running containers, this script will take several hours to run. In our experience it may take as long as 16 hours. This script captures executable output in the following files: 
+
+
+- wfe-clustering-semantic-DocDiff.txt
+- wfe-clustering-semantic-Nile.txt
+- wfe-clustering-semantic-Filesystem.txt
+- wfe-clustering-levenshtein-DocDiff.txt
+- wfe-clustering-levenshtein-Nile.txt
+- wfe-clustering-levenshtein-Filesystem.txt
+- wfe-clustering-tree_diff-DocDiff.txt
+- wfe-clustering-tree_diff-Nile.txt
+- wfe-clustering-tree_diff-Filesystem.txt
+
+These can be evaluated as described in the section [Artifact 1.3 : Cluster Evaluation](#artifact-13--cluster-evaluation).
+
+- fv-eval-DocDiff.txt
+- fv-eval-Nile.txt
+- fv-eval-Filesystem.txt
+
+These can be evaluated as described in the section [Artifact 1.4: Feature Vectors (Semantic Clusters)](#artifact-14-feature-vectors-semantic-clusters)
+
+- chaff-eval-DocDiff.txt
+- chaff-eval-Nile.txt
+- chaff-eval-Filesystem.txt
+These can be evaluated as described in the section [Artifact 2.2](#artifact-22)
+
+
 # Overview of Claims
 
 Mutation testing for example suites is an effective way to make sure students solve the
@@ -84,6 +121,7 @@ task of finding mutants entirely in the hands of experts, who often fail to anti
 student misconceptions. Our work contributes:
 - A method to generate effective mutants at low cost by clustering and analyzing incorrect examples
 - Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.
+  
 
 ## Claim 1: A method to generate effective mutants at low cost by clustering and analyzing incorrect examples
 
