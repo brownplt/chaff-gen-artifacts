@@ -1,7 +1,7 @@
-
+ #!/bin/sh
 
 for OPT in semantic levenshtein tree_diff ; do
-  for ASN in Docdiff Nile Filesystem ; do
+  for ASN in DocDiff Nile Filesystem ; do
     docker run --rm -it sidprasad/wfe-clustering ${OPT} ${ASN} >& wfe-clustering-${OPT}-${ASN}.txt
   done
 done
