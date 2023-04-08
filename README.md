@@ -36,7 +36,6 @@ following software:
 - A full installation of [Docker](https://docs.docker.com/get-docker/) and the Docker daemon.
   - Once you have installed Docker, fetch the relevant containers by running : 
 
-Additionally, we include a script that requires the use of a Unix-like command line shell. However, this is not required to evaluate the artifact.
 
 ```
 docker pull sidprasad/wfe-clustering:latest
@@ -69,6 +68,8 @@ docker build . -t sidprasad/fv-eval:latest
 ```
 
 Note that if you build these from source, digests will differ from prebuilt images.
+
+Additionally, we include a script that requires the use of a Unix-like command line shell. However, this is not required to evaluate the artifact.
 
 ### Ensuring things work as expected:
 
