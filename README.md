@@ -19,8 +19,8 @@ and can be found at `https://github.com/brownplt/chaff-gen-artifacts`.
     - [Artifact 1.3: Cluster Evaluation](#artifact-13--cluster-evaluation)
     - [Artifact 1.4: Feature Vectors (Semantic Clusters)](#artifact-14-feature-vectors-semantic-clusters)
   - [Claim 2: Evidence that Chaffs selected using our clustering method out-performed expert-written mutants.](#claim-2-evidence-that-chaffs-selected-using-our-clustering-method-out-performed-expert-written-mutants)
-    - [Artifact 2.1](#artifact-21)
-    - [Artifact 2.2: Chaff Evaluation](#artifact-22)
+    - [Artifact 2.1: The Chaffs](#artifact-21-the-chaffs)
+    - [Artifact 2.2: Chaff Evaluation](#artifact-22-chaff-evaluation)
 
 
 # Getting Started
@@ -297,7 +297,7 @@ Count   Feature Vector
 
 Our second contribution involved evaluating chaffs generated using our clustering process against expert-written chaffs that had been fine-tuned over several years. This was done by examining the feature vectors created by wheat failing examples (WFEs) against chaffs presented to students.
 
-### Artifact 2.1
+### Artifact 2.1: The Chaffs
 
 Chaffs presented to students for each assignment for each year are available in the `ChaffEval` directory. 
 The execution of this code is not required to evaluate this artifact. We present this artifact as data evidencing our choice of chaffs across years. The number of chaffs is as follows:
